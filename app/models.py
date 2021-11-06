@@ -69,6 +69,9 @@ class ContaModel(BasicMixin, db.Model):
 
         return self.limiteSaqueDiario - abs(limiteUsado)
 
+    def get_transacoes(self):
+        return TransacaoModel.query.filter_by(idConta=self.idConta).all()
+
     @classmethod
     def find_by_id(cls, id):
         return cls.query.filter_by(idConta=id).first()
@@ -89,4 +92,4 @@ class TransacaoModel(BasicMixin, db.Model):
         self.idConta = idConta
 
     def json(self):
-        return {'valor': self.valor, 'dataTransacao': self.dataTransacao, 'idConta': self.idConta}
+        return {'valor': self.valor, 'dataTransacao': str(self.dataTransacao)}
