@@ -1,0 +1,62 @@
+Cria uma conta bancária e retorna seus dados.
+---
+tags:
+  - Contas Bancárias
+
+parameters:
+  - in: body
+    name: limiteSaqueDiario
+    required: true
+    description: Limite de saque diário
+    schema:
+      type: number
+
+  - in: body
+    name: tipoConta
+    required: true
+    description: Tipo de conta a ser criada
+    schema:
+      type: integer
+
+  - in: body
+    name: idPessoa
+    required: true
+    description: ID da pessoa proprietária da conta
+    schema:
+      type: integer
+
+
+responses:
+  201:
+      description: Conta criada com sucesso
+      content: application/json
+      schema:
+          type: object
+          properties: 
+              id:
+                  type: integer
+              saldo:
+                  type: number
+              limiteSaqueDiario:
+                  type: number
+              flagAtivo: 
+                  type: boolean
+              tipoConta:
+                  type: integer
+  400:
+      description: Falha de validação ao criar conta
+      content: application/json
+      schema:
+          type: object
+          properties: 
+              message:
+                  type: string
+
+  500:
+      description: Falha ao salvar a conta
+      content: application/json
+      schema:
+          type: object
+          properties: 
+              message:
+                  type: string

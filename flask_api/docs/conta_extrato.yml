@@ -1,0 +1,36 @@
+Retorna uma lista de transações de uma conta bancária.
+---
+tags:
+    - Contas Bancárias
+
+parameters:
+  - in: path
+    name: id
+    required: true
+    description: ID da conta bancária
+    schema:
+      type: integer
+
+responses:
+    200:
+        description: Operação com sucesso
+        content: application/json
+        schema:
+            type: array 
+            items:
+                type: object
+                properties: 
+                    valor:
+                        type: integer
+                    dataTransacao:
+                        type: string
+                        format: date-time
+
+    404:
+      description: Conta não encontrada
+      content: application/json
+      schema:
+          type: object
+          properties: 
+              message:
+                  type: string

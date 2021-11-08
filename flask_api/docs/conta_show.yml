@@ -1,0 +1,39 @@
+Retorna uma conta bancária a partir de um ID.
+---
+tags:
+    - Contas Bancárias
+
+parameters:
+  - in: path
+    name: id
+    required: true
+    description: ID da conta bancária a ser consultada
+    schema:
+      type: integer
+
+responses:
+    200:
+        description: Operação com sucesso
+        content: application/json
+        schema:
+            type: object
+            properties: 
+                id:
+                    type: integer
+                saldo:
+                    type: number
+                limiteSaqueDiario:
+                    type: number
+                flagAtivo: 
+                    type: boolean
+                tipoConta:
+                    type: integer
+
+    404:
+      description: Conta não encontrada
+      content: application/json
+      schema:
+          type: object
+          properties: 
+              message:
+                  type: string

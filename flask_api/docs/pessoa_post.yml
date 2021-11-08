@@ -1,0 +1,60 @@
+Cria uma pessoa e retorna seus dados.
+---
+tags:
+  - Pessoas
+
+parameters:
+  - in: body
+    name: nome
+    required: true
+    description: Nome completo da pessoa
+    schema:
+      type: string
+
+  - in: body
+    name: cpf
+    required: true
+    description: CPF da pessoa (somente dígitos)
+    schema:
+      type: string
+
+  - in: body
+    name: dataNascimento
+    required: true
+    description: Data de nascimento da pessoa
+    schema:
+      type: string
+
+
+responses:
+  201:
+      description: Pessoa criada com sucesso
+      content: application/json
+      schema:
+          type: object
+          properties: 
+              id:
+                  type: integer
+              nome:
+                  type: string
+              cpf:
+                  type: string
+              dataNascimento: 
+                  type: string
+  400:
+      description: Falha de validação ao criar pessoa
+      content: application/json
+      schema:
+          type: object
+          properties: 
+              message:
+                  type: string
+
+  500:
+      description: Falha ao salvar a pessoa
+      content: application/json
+      schema:
+          type: object
+          properties: 
+              message:
+                  type: string

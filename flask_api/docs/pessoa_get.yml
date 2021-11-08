@@ -1,0 +1,21 @@
+Retorna uma lista de todas as pessoas existentes.
+---
+tags:
+    - Pessoas
+responses:
+    200:
+        description: Operação com sucesso
+        content: application/json
+        schema:
+            type: array 
+            items:
+                type: object
+                properties: 
+                    id:
+                        type: integer
+                    nome:
+                        type: string
+                    cpf:
+                        type: string
+                    dataNascimento: 
+                        type: string

@@ -1,0 +1,23 @@
+Retorna uma lista de todas as contas bancárias existentes.
+---
+tags:
+    - Contas Bancárias
+responses:
+    200:
+        description: Operação com sucesso
+        content: application/json
+        schema:
+            type: array 
+            items:
+                type: object
+                properties: 
+                    id:
+                        type: integer
+                    saldo:
+                        type: number
+                    limiteSaqueDiario:
+                        type: number
+                    flagAtivo: 
+                        type: boolean
+                    tipoConta:
+                        type: integer

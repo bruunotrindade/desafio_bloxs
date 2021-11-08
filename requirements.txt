@@ -1,5 +1,0 @@
-Flask
-Flask-restful
-Flask-SQLAlchemy
-mysqlclient
-python-dotenv

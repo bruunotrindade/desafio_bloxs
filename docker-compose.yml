@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: "bloxs"
+      MYSQL_DATABASE: "desafio_bloxs"
+    ports:
+      - 3306
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - mysql-network
+
+  app:
+    build: ./flask_api
+    ports:
+      - 5000:5000
+    volumes:
+      - ./flask_api:/usr/src/app/
+    depends_on:
+      - mysql
+    networks:
+      - mysql-network
+
+volumes:
+  mysql_data:
+
+networks:
+  mysql-network:
+    driver: bridge

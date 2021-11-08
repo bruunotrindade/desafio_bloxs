@@ -1,0 +1,31 @@
+Retorna o saldo de uma conta bancária a partir de um ID.
+---
+tags:
+    - Contas Bancárias
+
+parameters:
+  - in: path
+    name: id
+    required: true
+    description: ID da conta bancária
+    schema:
+      type: integer
+
+responses:
+    200:
+        description: Operação com sucesso
+        content: application/json
+        schema:
+            type: object
+            properties: 
+                saldo:
+                    type: number
+
+    404:
+      description: Conta não encontrada
+      content: application/json
+      schema:
+          type: object
+          properties: 
+              message:
+                  type: string

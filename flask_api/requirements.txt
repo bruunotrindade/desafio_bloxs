@@ -1,0 +1,9 @@
+Flask
+Flask-restful
+Flask-SQLAlchemy
+flask-unittest
+flasgger
+mysqlclient
+python-dotenv
+validate-docbr
+Faker

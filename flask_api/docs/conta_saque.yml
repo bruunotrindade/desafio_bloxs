@@ -1,0 +1,64 @@
+Realiza um saque em uma conta bancária.
+---
+tags:
+    - Contas Bancárias
+
+parameters:
+  - in: path
+    name: id
+    required: true
+    description: ID da conta bancária a ser executada a operação
+    schema:
+      type: integer
+
+  - in: body
+    name: valor
+    required: true
+    description: Valor a ser sacado
+    schema:
+      type: number
+
+responses:
+    200:
+        description: Operação com sucesso
+        content: application/json
+        schema:
+            type: object
+            properties: 
+                id:
+                    type: integer
+                saldo:
+                    type: number
+                limiteSaqueDiario:
+                    type: number
+                flagAtivo: 
+                    type: boolean
+                tipoConta:
+                    type: integer
+
+    400:
+      description: Falha de validação
+      content: application/json
+      schema:
+          type: object
+          properties: 
+              message:
+                  type: string
+    
+    404:
+      description: Conta não encontrada
+      content: application/json
+      schema:
+          type: object
+          properties: 
+              message:
+                  type: string
+
+    500:
+      description: Falha ao salvar a conta
+      content: application/json
+      schema:
+          type: object
+          properties: 
+              message:
+                  type: string

@@ -1,7 +1,10 @@
-from config import db
 from datetime import datetime, timedelta
 from sqlalchemy.sql import func
+from config import db
 
+'''
+    Mixin básico para definir operações de save() e delete()
+'''
 class BasicMixin(object):
     def save(self):
         db.session.add(self)
@@ -11,7 +14,9 @@ class BasicMixin(object):
         db.session.delete(self)
         db.session.commit() 
 
-
+'''
+    Model para a tabela de Pessoa
+'''
 class PessoaModel(BasicMixin, db.Model):
     __tablename__ = 'pessoa'
 
@@ -26,13 +31,23 @@ class PessoaModel(BasicMixin, db.Model):
         self.dataNascimento = dataNascimento
 
     def json(self):
-        return {'nome': self.nome, 'cpf': self.cpf, 'dataNascimento': self.dataNascimento}
+        return {
+            'id': self.idPessoa,
+            'nome': self.nome, 
+            'cpf': self.cpf, 
+            'dataNascimento': str(self.dataNascimento)
+        }
 
+    '''
+        Busca de Pessoa por CPF
+    '''
     @classmethod
-    def find_by_name(cls, nome):
-        return cls.query.filter_by(nome=nome).first()
+    def find_by_cpf(cls, cpf):
+        return cls.query.filter_by(cpf=cpf).first()
 
-
+'''
+    Model para a tabela de Conta
+'''
 class ContaModel(BasicMixin, db.Model):
     class TipoConta:
         CORRENTE = 1
@@ -56,8 +71,17 @@ class ContaModel(BasicMixin, db.Model):
         self.idPessoa = idPessoa
 
     def json(self):
-        return {'saldo': self.saldo, 'limiteSaqueDiario': self.limiteSaqueDiario, 'flagAtivo': self.flagAtivo, 'tipoConta': self.tipoConta}
+        return {
+            'id': self.idConta, 
+            'saldo': self.saldo, 
+            'limiteSaqueDiario': self.limiteSaqueDiario, 
+            'flagAtivo': self.flagAtivo, 
+            'tipoConta': self.tipoConta
+        }
 
+    '''
+        Recupera o limite disponível em uma Conta
+    '''
     def get_limite_disponivel(self):
         date = datetime.now().date()
         id = self.idConta
@@ -69,14 +93,22 @@ class ContaModel(BasicMixin, db.Model):
 
         return self.limiteSaqueDiario - abs(limiteUsado)
 
+    '''
+        Recupera as transações feitas na Conta
+    '''
     def get_transacoes(self):
         return TransacaoModel.query.filter_by(idConta=self.idConta).all()
 
+    '''
+        Busca de Conta por ID
+    '''
     @classmethod
     def find_by_id(cls, id):
         return cls.query.filter_by(idConta=id).first()
 
-
+'''
+    Model para a tabela de Transacao
+'''
 class TransacaoModel(BasicMixin, db.Model):
     __tablename__ = 'transacao'
 
@@ -92,4 +124,7 @@ class TransacaoModel(BasicMixin, db.Model):
         self.idConta = idConta
 
     def json(self):
-        return {'valor': self.valor, 'dataTransacao': str(self.dataTransacao)}
+        return {
+            'valor': self.valor, 
+            'dataTransacao': str(self.dataTransacao)
+        }
